@@ -12,6 +12,7 @@ import { Rotations } from '../../utils/player/Rotations';
 import { Raytrace } from '../../utils/Raytrace';
 import { NukerUtils } from '../../utils/NukerUtils';
 import { getTrackedGlowingMushrooms, isGlowingMushroomBlock } from './GlowingMushroomESP';
+import { ScheduleTask } from '../../utils/ScheduleTask';
 
 const MAX_REACH = 4.5;
 const AIM_FAIL_BLACKLIST_MS = 3000;
@@ -378,15 +379,17 @@ class GlowingMushroomMacro extends ModuleBase {
                 Keybind.leftClick();
                 totalClicks++;
 
-                // Retry the same tiny-hitbox mushroom a few times before skipping.
-                if (isGlowingMushroomBlock(target.x, target.y, target.z) && retryCount < MAX_TARGET_CLICK_RETRIES) {
-                    this.clickMushroomChain(targets, currentIndex, token, totalClicks, onDone, retryCount + 1);
-                    return;
-                }
+                ScheduleTask(() => {
+                    // Retry the same tiny-hitbox mushroom a few times before skipping.
+                    if (isGlowingMushroomBlock(target.x, target.y, target.z) && retryCount < MAX_TARGET_CLICK_RETRIES) {
+                        this.clickMushroomChain(targets, currentIndex, token, totalClicks, onDone, retryCount + 1);
+                        return;
+                    }
 
-                if (isGlowingMushroomBlock(target.x, target.y, target.z) && retryCount >= MAX_TARGET_CLICK_RETRIES) {
-                    this.blacklistMushroom(target.x, target.y, target.z);
-                }
+                    if (isGlowingMushroomBlock(target.x, target.y, target.z) && retryCount >= MAX_TARGET_CLICK_RETRIES) {
+                        this.blacklistMushroom(target.x, target.y, target.z);
+                    }
+                });
             } else {
                 this.blacklistMushroom(target.x, target.y, target.z);
             }
