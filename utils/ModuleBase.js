@@ -299,7 +299,7 @@ export class ModuleBase {
      * @param {boolean} [defaultValue=false] - Optional: Default value for the toggle
      */
     addToggle(title, callback, description = null, defaultValue = false) {
-        Categories.addToggle('Modules', this.name, title, callback, description, defaultValue);
+        return Categories.addToggle('Modules', this.name, title, callback, description, defaultValue);
     }
 
     /**
@@ -311,7 +311,7 @@ export class ModuleBase {
      * @param {string} [sectionName=null] - Optional: Section header within Settings
      */
     addDirectToggle(title, callback, description = null, defaultValue = false, sectionName = null) {
-        Categories.addSettingsToggle(title, callback, description, defaultValue, sectionName, 'Settings');
+        return Categories.addSettingsToggle(title, callback, description, defaultValue, sectionName, 'Settings');
     }
 
     /**
@@ -324,7 +324,7 @@ export class ModuleBase {
      * @param {string} [description=null] - Description/tooltip for the slider
      */
     addSlider(title, min, max, def, callback, description = null) {
-        Categories.addSlider('Modules', this.name, title, min, max, def, callback, description);
+        return Categories.addSlider('Modules', this.name, title, min, max, def, callback, description);
     }
 
     /**
@@ -338,7 +338,7 @@ export class ModuleBase {
      * @param {string} [sectionName=null] - Optional: Section header within Settings
      */
     addDirectSlider(title, min, max, def, callback, description = null, sectionName = null) {
-        Categories.addSettingsSlider(title, min, max, def, callback, description, sectionName, 'Settings');
+        return Categories.addSettingsSlider(title, min, max, def, callback, description, sectionName, 'Settings');
     }
 
     /**
@@ -351,7 +351,7 @@ export class ModuleBase {
      * @param {string} [description=null] - Description/tooltip for the slider
      */
     addRangeSlider(title, min, max, def, callback, description = null) {
-        Categories.addRangeSlider('Modules', this.name, title, min, max, def, callback, description);
+        return Categories.addRangeSlider('Modules', this.name, title, min, max, def, callback, description);
     }
 
     /**
@@ -365,7 +365,7 @@ export class ModuleBase {
      * @param {string} [sectionName=null] - Optional: Section header within Settings
      */
     addDirectRangeSlider(title, min, max, def, callback, description = null, sectionName = null) {
-        Categories.addSettingsRangeSlider(title, min, max, def, callback, description, sectionName, 'Settings');
+        return Categories.addSettingsRangeSlider(title, min, max, def, callback, description, sectionName, 'Settings');
     }
 
     /**
@@ -403,7 +403,7 @@ export class ModuleBase {
      * @param {string} [description=null] - Description/tooltip for the color picker
      */
     addColorPicker(title, defaultColor, callback, description = null) {
-        Categories.addColorPicker('Modules', this.name, title, defaultColor, callback, description);
+        return Categories.addColorPicker('Modules', this.name, title, defaultColor, callback, description);
     }
 
     /**
@@ -415,7 +415,7 @@ export class ModuleBase {
      * @param {string} [sectionName=null] - Optional: Section header within Settings
      */
     addDirectColorPicker(title, defaultColor, callback, description = null, sectionName = null) {
-        Categories.addSettingsColorPicker(title, defaultColor, callback, description, sectionName, 'Settings');
+        return Categories.addSettingsColorPicker(title, defaultColor, callback, description, sectionName, 'Settings');
     }
 
     /**
@@ -426,7 +426,7 @@ export class ModuleBase {
      * @param {string} [description=null] - Description/tooltip
      */
     addTextInput(title, defaultValue, callback, description = null) {
-        Categories.addTextInput('Modules', this.name, title, defaultValue, callback, description);
+        return Categories.addTextInput('Modules', this.name, title, defaultValue, callback, description);
     }
 
     /**
@@ -438,7 +438,7 @@ export class ModuleBase {
      * @param {string} [sectionName=null] - Optional: Section header within Settings
      */
     addDirectTextInput(title, defaultValue, callback, description = null, sectionName = null) {
-        Categories.addSettingsTextInput(title, defaultValue, callback, description, sectionName, 'Settings');
+        return Categories.addSettingsTextInput(title, defaultValue, callback, description, sectionName, 'Settings');
     }
 
     /**
@@ -448,7 +448,7 @@ export class ModuleBase {
      * @param {string} [description=null] - Description/tooltip
      */
     addButton(title, callback, description = null) {
-        Categories.addButton('Modules', this.name, title, callback, description);
+        return Categories.addButton('Modules', this.name, title, callback, description);
     }
 
     /**
@@ -459,7 +459,7 @@ export class ModuleBase {
      * @param {string} [sectionName=null] - Optional: Section header within Settings
      */
     addDirectButton(title, callback, description = null, sectionName = null) {
-        Categories.addSettingsButton(title, callback, description, sectionName, 'Settings');
+        return Categories.addSettingsButton(title, callback, description, sectionName, 'Settings');
     }
 
     /**
@@ -480,7 +480,7 @@ export class ModuleBase {
      * @param {string} [sectionName=null] - Optional: Section header within Settings
      */
     addDirectPopup(title, callback, description = null, sectionName = null) {
-        Categories.addSettingsPopup(title, callback, description, sectionName, 'Settings');
+        return Categories.addSettingsPopup(title, callback, description, sectionName, 'Settings');
     }
 
     /**
@@ -489,7 +489,7 @@ export class ModuleBase {
      * @param {boolean} [fullWidth=false] - Whether the separator spans the full panel width
      */
     addSeparator(title, fullWidth = false) {
-        Categories.addSeparator('Modules', this.name, title, fullWidth);
+        return Categories.addSeparator('Modules', this.name, title, fullWidth);
     }
 
     /**
@@ -497,7 +497,7 @@ export class ModuleBase {
      * @param {string} title - The title of the separator
      */
     addDirectSeparator(title) {
-        Categories.addSettingsSeparator(title, 'Settings');
+        return Categories.addSettingsSeparator(title, 'Settings');
     }
 
     // Allow for overriding onEnable and onDisable if you need more control

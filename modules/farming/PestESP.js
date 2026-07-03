@@ -59,4 +59,7 @@ class PestESP extends ModuleBase {
     }
 }
 
-if (isDeveloperModeEnabled()) new PestESP();
+// Exported so other modules (e.g. PestsOnTrack) can read persistentPests without
+// duplicating the scan logic. Will be null if developer mode is disabled, since
+// the instance is never created in that case — consumers must null-check this.
+export const PestESPInstance = isDeveloperModeEnabled() ? new PestESP() : null;

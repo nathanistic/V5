@@ -24,6 +24,9 @@ import './farming/GlowingMushroomMacro';
 import './farming/PestESP';
 import './farming/PeltMacro';
 import './farming/PeltQOL';
+import './cropfarmer/CropFarmer';
+import './cropfarmer/PestsOnTrack';
+import './cropfarmer/PestAssassin';
 
 /* VISUALS */
 import './visuals/BlockVisual';

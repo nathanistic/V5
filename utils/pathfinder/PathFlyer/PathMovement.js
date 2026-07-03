@@ -22,6 +22,7 @@ class PathMovement {
         this.LATERAL_DEADZONE = 0.55;
         this.VERTICAL_DEADZONE = 0.55;
         this.VERTICAL_DEADZONE_MOVING = 0.75;
+        this.facingMode = 'forward'; // 'forward' | 'backward' — see setMovementKeysForYaw for why this needs hysteresis
 
         PathExecutor.onTick(() => {
             if (!this.isActive || !this.path || this.path.length === 0) return;
@@ -60,6 +61,7 @@ class PathMovement {
         this.complete = false;
         this.state = 'MOVING';
         this.decelTicks = 0;
+        this.facingMode = 'forward';
     }
 
     getYawToTarget(dx, dz) {
@@ -97,12 +99,30 @@ class PathMovement {
 
         if (distSqXZ < 0.15) {
             Keybind.setKey('w', true);
+            this.facingMode = 'forward';
             return;
         }
 
-        if (absYawDelta < 75) {
+        // The 75-145 degree dead zone (neither w nor s, only a bare strafe
+        // key) was already fixed by splitting the decision at 90 degrees —
+        // but a single hard threshold has its own problem: as the player
+        // drifts near the target, flight momentum (0.91 drag, see
+        // PathPrediction) means the actual approach angle doesn't snap
+        // cleanly, it hovers right around whatever the boundary is. Every
+        // tick the delta crosses 90 degrees, this flips w<->s, fighting the
+        // player's own existing momentum instead of ever letting it settle —
+        // which looks like, and functionally is, circling the target forever.
+        // A gap between the switch-to-backward and switch-back-to-forward
+        // thresholds means a single tick's noise can't flip it.
+        if (this.facingMode === 'forward' && absYawDelta > 100) {
+            this.facingMode = 'backward';
+        } else if (this.facingMode === 'backward' && absYawDelta < 80) {
+            this.facingMode = 'forward';
+        }
+
+        if (this.facingMode === 'forward') {
             Keybind.setKey('w', true);
-        } else if (absYawDelta > 145) {
+        } else {
             Keybind.setKey('s', true);
         }
 
